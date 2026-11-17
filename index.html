@@ -17,6 +17,19 @@
 </head>
 <body>
 
+    <!-- ПРЕЛОАДЕР -->
+    <div id="preloader">
+        <div class="preloader-text">
+            <span id="preloader-line1"></span>
+            <span id="preloader-line2"></span>
+            <span class="terminal-cursor">▊</span>
+        </div>
+    </div>
+
+    <!-- КУРСОР -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
     <!-- НАВИГАЦИЯ -->
     <nav class="navbar">
         <div class="nav-container">
@@ -29,7 +42,7 @@
                 <a href="#calc">Калькулятор</a>
                 <a href="#contact">Контакты</a>
                 <a href="https://t.me/vanek_dev" class="nav-btn nav-channel" target="_blank">📢 Канал</a>
-                <a href="https://t.me/clown783" class="nav-btn" target="_blank">Написать</a>
+                <a href="https://t.me/clown783" class="nav-btn nav-pulse" target="_blank">Написать</a>
             </div>
         </div>
     </nav>
@@ -44,7 +57,6 @@
             <p class="hero-skills">const skills = ["Сайты", "Telegram-боты", "AI", "Mini Apps"];</p>
             <p class="hero-desc">19 лет. 3 года в разработке. Создаю сочные сайты, умных Telegram-ботов и AI-интеграции. Python + Frontend + AI.</p>
 
-            <!-- ЖИВОЙ ТЕРМИНАЛ -->
             <div class="terminal">
                 <div class="terminal-header">
                     <span class="terminal-dot red"></span>
@@ -76,7 +88,7 @@
     </section>
 
     <!-- ОБО МНЕ -->
-    <section class="about" id="about">
+    <section class="about reveal" id="about">
         <h2>Кто я такой</h2>
         <div class="about-content">
             <div class="about-text">
@@ -89,7 +101,7 @@
     </section>
 
     <!-- ТЕХНОЛОГИИ -->
-    <section class="tech" id="tech">
+    <section class="tech reveal" id="tech">
         <h2>Технологии</h2>
         <p class="section-subtitle">Стек, с которым я работаю</p>
         <div class="tech-grid">
@@ -115,7 +127,7 @@
     </section>
 
     <!-- УСЛУГИ -->
-    <section class="services" id="services">
+    <section class="services reveal" id="services">
         <h2>Что я делаю</h2>
         <p class="section-subtitle">Три направления, в которых я силён. <strong style="color:#00ff88;">Скидка на первый заказ</strong>.</p>
         <div class="services-grid">
@@ -128,9 +140,7 @@
                     <li>Сайты-визитки</li>
                     <li>Портфолио и резюме</li>
                 </ul>
-                <div class="price-block">
-                    <span class="price-new">от 5 000 ₽</span>
-                </div>
+                <div class="price-block"><span class="price-new">от 5 000 ₽</span></div>
             </div>
             <div class="service-card featured">
                 <div class="service-icon">🤖</div>
@@ -141,9 +151,7 @@
                     <li>AI-боты (ChatGPT/Claude)</li>
                     <li>Оплата и подписки</li>
                 </ul>
-                <div class="price-block">
-                    <span class="price-new">от 3 000 ₽</span>
-                </div>
+                <div class="price-block"><span class="price-new">от 3 000 ₽</span></div>
             </div>
             <div class="service-card">
                 <div class="service-icon">📱</div>
@@ -154,99 +162,64 @@
                     <li>Игровые механики</li>
                     <li>Дашборды и панели</li>
                 </ul>
-                <div class="price-block">
-                    <span class="price-new">от 10 000 ₽</span>
-                </div>
+                <div class="price-block"><span class="price-new">от 10 000 ₽</span></div>
             </div>
         </div>
     </section>
 
     <!-- ПРОЕКТЫ -->
-    <section class="portfolio" id="portfolio">
+    <section class="portfolio reveal" id="portfolio">
         <h2>Проекты</h2>
         <p class="section-subtitle">Каждый проект — реальная задача и результат</p>
         <div class="portfolio-grid">
             
-            <div class="project-card">
+            <div class="project-card tilt">
                 <div class="project-header">
                     <span class="project-emoji">🛡️</span>
                     <span class="project-tag">Bot</span>
                 </div>
                 <h3>VPN-бот для бизнеса</h3>
                 <div class="case-study">
-                    <div class="case-item">
-                        <span class="case-label">Проблема:</span>
-                        <span>Владелец VPN тратил 2 часа в день на ручную выдачу ключей.</span>
-                    </div>
-                    <div class="case-item">
-                        <span class="case-label">Решение:</span>
-                        <span>Бот с автовыдачей ключей через API 3x-ui.</span>
-                    </div>
-                    <div class="case-item">
-                        <span class="case-label">Результат:</span>
-                        <span>Экономия 60 часов в месяц, клиенты получают ключи за 5 секунд.</span>
-                    </div>
+                    <div class="case-item"><span class="case-label">Проблема:</span><span>Владелец VPN тратил 2 часа в день на ручную выдачу ключей.</span></div>
+                    <div class="case-item"><span class="case-label">Решение:</span><span>Бот с автовыдачей ключей через API 3x-ui.</span></div>
+                    <div class="case-item"><span class="case-label">Результат:</span><span>Экономия 60 часов в месяц, клиенты получают ключи за 5 секунд.</span></div>
                 </div>
-                <div class="project-tech">
-                    <span>Python</span><span>aiogram</span><span>SQLite</span><span>3x-ui API</span>
-                </div>
+                <div class="project-tech"><span>Python</span><span>aiogram</span><span>SQLite</span><span>3x-ui API</span></div>
             </div>
 
-            <div class="project-card">
+            <div class="project-card tilt">
                 <div class="project-header">
                     <span class="project-emoji">📊</span>
                     <span class="project-tag">AI</span>
                 </div>
                 <h3>Crypto-бот с ИИ</h3>
                 <div class="case-study">
-                    <div class="case-item">
-                        <span class="case-label">Проблема:</span>
-                        <span>Нужен был автопостинг крипто-обзоров в канал без участия человека.</span>
-                    </div>
-                    <div class="case-item">
-                        <span class="case-label">Решение:</span>
-                        <span>Бот с интеграцией AI для генерации постов и расписанием.</span>
-                    </div>
-                    <div class="case-item">
-                        <span class="case-label">Результат:</span>
-                        <span>Канал автоматически публикует 5 постов в день, охват вырос на 40%.</span>
-                    </div>
+                    <div class="case-item"><span class="case-label">Проблема:</span><span>Нужен был автопостинг крипто-обзоров в канал без участия человека.</span></div>
+                    <div class="case-item"><span class="case-label">Решение:</span><span>Бот с интеграцией AI для генерации постов и расписанием.</span></div>
+                    <div class="case-item"><span class="case-label">Результат:</span><span>Канал автоматически публикует 5 постов в день, охват вырос на 40%.</span></div>
                 </div>
-                <div class="project-tech">
-                    <span>Python</span><span>AI</span><span>Scheduler</span><span>CoinGecko API</span>
-                </div>
+                <div class="project-tech"><span>Python</span><span>AI</span><span>Scheduler</span><span>CoinGecko API</span></div>
             </div>
 
-            <div class="project-card">
+            <div class="project-card tilt">
                 <div class="project-header">
                     <span class="project-emoji">⚙️</span>
                     <span class="project-tag">Bot</span>
                 </div>
                 <h3>Бот под задачу</h3>
                 <div class="case-study">
-                    <div class="case-item">
-                        <span class="case-label">Проблема:</span>
-                        <span>Бизнесу нужен был универсальный бот для автоматизации.</span>
-                    </div>
-                    <div class="case-item">
-                        <span class="case-label">Решение:</span>
-                        <span>Бот с готовой логикой, админкой и интеграциями.</span>
-                    </div>
-                    <div class="case-item">
-                        <span class="case-label">Результат:</span>
-                        <span>Автоматизация рутины, рост заявок на 30%.</span>
-                    </div>
+                    <div class="case-item"><span class="case-label">Проблема:</span><span>Бизнесу нужен был универсальный бот для автоматизации.</span></div>
+                    <div class="case-item"><span class="case-label">Решение:</span><span>Бот с готовой логикой, админкой и интеграциями.</span></div>
+                    <div class="case-item"><span class="case-label">Результат:</span><span>Автоматизация рутины, рост заявок на 30%.</span></div>
                 </div>
-                <div class="project-tech">
-                    <span>Python</span><span>aiogram</span><span>SQLite</span>
-                </div>
+                <div class="project-tech"><span>Python</span><span>aiogram</span><span>SQLite</span></div>
             </div>
 
         </div>
     </section>
 
     <!-- ПРОМО-БЛОК -->
-    <section class="promo" id="promo">
+    <section class="promo reveal" id="promo">
         <h2>Перед тем как писать</h2>
         <p class="section-subtitle">Коротко о главном</p>
         <div class="promo-grid">
@@ -257,7 +230,7 @@
     </section>
 
     <!-- КАЛЬКУЛЯТОР -->
-    <section class="calc" id="calc">
+    <section class="calc reveal" id="calc">
         <h2>Калькулятор стоимости</h2>
         <p class="section-subtitle">Отметь, что нужно — цена посчитается сама</p>
         <div class="calc-grid">
@@ -266,7 +239,7 @@
             <div class="calc-card" data-block="bot">
                 <h3>🤖 Telegram-боты</h3>
                 <label class="calc-base">
-                    <input type="radio" name="base-bot" data-price="3000" data-label="Telegram-бот">
+                    <input type="checkbox" class="calc-base-input" data-price="3000" data-label="Telegram-бот">
                     <span>Базовая настройка (меню, кнопки, эхо-бот)</span>
                     <span class="calc-price">3000 ₽</span>
                 </label>
@@ -303,7 +276,7 @@
             <div class="calc-card" data-block="mini">
                 <h3>📱 Mini Apps (WebApp)</h3>
                 <label class="calc-base">
-                    <input type="radio" name="base-mini" data-price="8000" data-label="Mini App (WebApp)">
+                    <input type="checkbox" class="calc-base-input" data-price="8000" data-label="Mini App (WebApp)">
                     <span>Простое приложение (личный кабинет, баланс)</span>
                     <span class="calc-price">8000 ₽</span>
                 </label>
@@ -330,7 +303,7 @@
             <div class="calc-card" data-block="site">
                 <h3>🌐 Сайты / лендинги</h3>
                 <label class="calc-base">
-                    <input type="radio" name="base-site" data-price="5000" data-label="Сайт-лендинг (адаптивный)">
+                    <input type="checkbox" class="calc-base-input" data-price="5000" data-label="Сайт-лендинг (адаптивный)">
                     <span>Одностраничный лендинг (визитка, адаптивный)</span>
                     <span class="calc-price">5000 ₽</span>
                 </label>
@@ -365,39 +338,19 @@
     </section>
 
     <!-- КАК Я РАБОТАЮ -->
-    <section class="process" id="process">
+    <section class="process reveal" id="process">
         <h2>Как я работаю</h2>
         <p class="section-subtitle">Простой процесс без сюрпризов</p>
         <div class="process-grid">
-            <div class="process-step">
-                <div class="step-number">01</div>
-                <div class="step-icon">💬</div>
-                <h3>Обсуждение</h3>
-                <p>Созваниваемся или переписываемся, обсуждаем задачу. Я задаю вопросы, ты рассказываешь что нужно.</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">02</div>
-                <div class="step-icon">📐</div>
-                <h3>План и цена</h3>
-                <p>Оцениваю сроки и стоимость. Согласовываем ТЗ. Обсуждаем референсы, стиль, фичи.</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">03</div>
-                <div class="step-icon">⚡</div>
-                <h3>Разработка</h3>
-                <p>Делаю проект, показываю промежуточные результаты. Вношу правки по ходу работы.</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">04</div>
-                <div class="step-icon">🚀</div>
-                <h3>Сдача и поддержка</h3>
-                <p>Передаю готовый проект, помогаю с деплоем. Даю гарантию на все правки после сдачи.</p>
-            </div>
+            <div class="process-step"><div class="step-number">01</div><div class="step-icon">💬</div><h3>Обсуждение</h3><p>Созваниваемся или переписываемся, обсуждаем задачу. Я задаю вопросы, ты рассказываешь что нужно.</p></div>
+            <div class="process-step"><div class="step-number">02</div><div class="step-icon">📐</div><h3>План и цена</h3><p>Оцениваю сроки и стоимость. Согласовываем ТЗ. Обсуждаем референсы, стиль, фичи.</p></div>
+            <div class="process-step"><div class="step-number">03</div><div class="step-icon">⚡</div><h3>Разработка</h3><p>Делаю проект, показываю промежуточные результаты. Вношу правки по ходу работы.</p></div>
+            <div class="process-step"><div class="step-number">04</div><div class="step-icon">🚀</div><h3>Сдача и поддержка</h3><p>Передаю готовый проект, помогаю с деплоем. Даю гарантию на все правки после сдачи.</p></div>
         </div>
     </section>
 
     <!-- КОНТАКТЫ -->
-    <section class="contact" id="contact">
+    <section class="contact reveal" id="contact">
         <h2>Готов начать проект?</h2>
         <p>Напиши в Telegram — обсудим задачу, сроки и стоимость. <strong style="color:#00ff88;">Скидка на первый заказ</strong>.</p>
         <div class="contact-buttons">

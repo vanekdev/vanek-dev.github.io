@@ -1,10 +1,44 @@
 // ==========================================
-// 1. ЧАСТИЦЫ НА ФОНЕ
+// 1. ПРЕЛОАДЕР
+// ==========================================
+
+const preloader = document.getElementById('preloader');
+const line1 = document.getElementById('preloader-line1');
+const line2 = document.getElementById('preloader-line2');
+
+function typeText(el, text, speed, callback) {
+    let i = 0;
+    el.textContent = '';
+    const timer = setInterval(() => {
+        el.textContent += text[i];
+        i++;
+        if (i >= text.length) {
+            clearInterval(timer);
+            if (callback) setTimeout(callback, 200);
+        }
+    }, speed);
+}
+
+if (!sessionStorage.getItem('preloaderShown')) {
+    typeText(line1, '> Инициализация...', 60, () => {
+        typeText(line2, '> Доступ разрешен', 60, () => {
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+                sessionStorage.setItem('preloaderShown', 'true');
+                setTimeout(() => preloader.remove(), 600);
+            }, 600);
+        });
+    });
+} else {
+    preloader.remove();
+}
+
+// ==========================================
+// 2. ЧАСТИЦЫ НА ФОНЕ
 // ==========================================
 
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -20,7 +54,6 @@ class Particle {
         this.speedY = Math.random() * 0.5 - 0.25;
         this.opacity = Math.random() * 0.5 + 0.2;
     }
-    
     update() {
         this.x += this.speedX;
         this.y += this.speedY;
@@ -29,29 +62,25 @@ class Particle {
         if (this.y > canvas.height) this.y = 0;
         if (this.y < 0) this.y = canvas.height;
     }
-    
     draw() {
-        ctx.fillStyle = `rgba(0, 255, 136, ${this.opacity})`;
+        ctx.fillStyle = `rgba(0,255,136,${this.opacity})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
     }
 }
 
-for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-}
+for (let i = 0; i < particleCount; i++) particles.push(new Particle());
 
 function animateParticles() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
     for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             if (distance < 120) {
-                ctx.strokeStyle = `rgba(0, 255, 136, ${0.1 * (1 - distance / 120)})`;
+                ctx.strokeStyle = `rgba(0,255,136,${0.1 * (1 - distance / 120)})`;
                 ctx.lineWidth = 0.5;
                 ctx.beginPath();
                 ctx.moveTo(particles[i].x, particles[i].y);
@@ -60,38 +89,28 @@ function animateParticles() {
             }
         }
     }
-    
-    particles.forEach(p => {
-        p.update();
-        p.draw();
-    });
-    
+    particles.forEach(p => { p.update(); p.draw(); });
     requestAnimationFrame(animateParticles);
 }
-
 animateParticles();
 
 // ==========================================
-// 2. АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ
+// 3. REVEAL-АНИМАЦИИ
 // ==========================================
 
-const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-
-const observer = new IntersectionObserver((entries) => {
+const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target);
         }
     });
-}, observerOptions);
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.service-card, .project-card, .process-step, .skill-item, .promo-item').forEach(el => {
-    el.classList.add('fade-in');
-    observer.observe(el);
-});
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 // ==========================================
-// 3. СЧЁТЧИКИ ЦИФР
+// 4. СЧЁТЧИКИ ЦИФР
 // ==========================================
 
 const counters = document.querySelectorAll('.stat-number');
@@ -122,21 +141,19 @@ function animateCounter(element, target) {
 }
 
 // ==========================================
-// 4. ПЛАВНЫЙ СКРОЛЛ
+// 5. ПЛАВНЫЙ СКРОЛЛ
 // ==========================================
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-        }
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
     });
 });
 
 // ==========================================
-// 5. ЭФФЕКТ ПАРАЛЛАКСА НА ГЛАВНОМ ЭКРАНЕ
+// 6. ПАРАЛЛАКС НА ГЛАВНОМ ЭКРАНЕ
 // ==========================================
 
 window.addEventListener('scroll', () => {
@@ -149,25 +166,38 @@ window.addEventListener('scroll', () => {
 });
 
 // ==========================================
-// 6. КАСТОМНЫЙ КУРСОР
+// 7. КУРСОР (точка + кольцо с запаздыванием)
 // ==========================================
 
-const cursor = document.createElement('div');
-cursor.className = 'custom-cursor';
-document.body.appendChild(cursor);
+const cursorDot = document.querySelector('.cursor-dot');
+const cursorRing = document.querySelector('.cursor-ring');
+
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
 
 document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top = mouseY + 'px';
 });
 
-document.querySelectorAll('a, button, .btn, .calc-option, .calc-base').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+function animateRing() {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top = ringY + 'px';
+    requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .btn, .calc-base, .calc-option').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
 });
 
 // ==========================================
-// 7. ЖИВОЙ ТЕРМИНАЛ
+// 8. ЖИВОЙ ТЕРМИНАЛ
 // ==========================================
 
 const phrases = [
@@ -203,13 +233,26 @@ function typeTerminal() {
 typeTerminal();
 
 // ==========================================
-// 8. КАЛЬКУЛЯТОР СТОИМОСТИ
+// 9. КАЛЬКУЛЯТОР (починенный)
 // ==========================================
 
 const calcCards = document.querySelectorAll('.calc-card');
-const calcTotal = document.getElementById('calc-total');
-const calcDiscount = document.getElementById('calc-discount');
+const calcTotalEl = document.getElementById('calc-total');
+const calcDiscountEl = document.getElementById('calc-discount');
 const calcBtn = document.getElementById('calc-btn');
+let currentTotal = 0;
+
+function animateNumber(el, from, to, duration = 400) {
+    const start = performance.now();
+    function step(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const value = Math.floor(from + (to - from) * progress);
+        el.textContent = value.toLocaleString('ru-RU') + ' ₽';
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = to.toLocaleString('ru-RU') + ' ₽';
+    }
+    requestAnimationFrame(step);
+}
 
 function updateCalc() {
     let total = 0;
@@ -217,16 +260,12 @@ function updateCalc() {
     const selectedItems = [];
 
     calcCards.forEach(card => {
-        const base = card.querySelector('.calc-base input[type="radio"]');
+        const base = card.querySelector('.calc-base-input');
         const extras = card.querySelectorAll('.calc-extras input[type="checkbox"]');
-        const extrasWrap = card.querySelector('.calc-extras');
-
-        // Блок активен, если выбрана база
         const isActive = base.checked;
         card.classList.toggle('active', isActive);
         if (isActive) activeBlocks++;
 
-        // Активируем/деактивируем допы
         extras.forEach(extra => {
             const label = extra.closest('.calc-option');
             if (isActive) {
@@ -239,13 +278,10 @@ function updateCalc() {
             }
         });
 
-        // Считаем базу
         if (base.checked) {
             total += parseInt(base.dataset.price);
             selectedItems.push(base.dataset.label);
         }
-
-        // Считаем допы
         extras.forEach(extra => {
             if (extra.checked) {
                 total += parseInt(extra.dataset.price);
@@ -254,25 +290,23 @@ function updateCalc() {
         });
     });
 
-    // Скидка 10%, если баз в 2+ блоках
     let finalTotal = total;
-    let hasDiscount = activeBlocks >= 2;
+    const hasDiscount = activeBlocks >= 2;
 
     if (hasDiscount) {
         finalTotal = Math.round(total * 0.9);
-        calcDiscount.style.display = 'block';
-        calcDiscount.textContent = `Скидка за комплекс: −${(total - finalTotal).toLocaleString('ru-RU')} ₽ (10%)`;
+        calcDiscountEl.style.display = 'block';
+        calcDiscountEl.textContent = `Скидка за комплекс: −${(total - finalTotal).toLocaleString('ru-RU')} ₽ (10%)`;
     } else {
-        calcDiscount.style.display = 'none';
+        calcDiscountEl.style.display = 'none';
     }
 
-    calcTotal.textContent = finalTotal.toLocaleString('ru-RU') + ' ₽';
+    animateNumber(calcTotalEl, currentTotal, finalTotal);
+    currentTotal = finalTotal;
 
-    // Кнопка
     if (finalTotal > 0) {
         calcBtn.classList.remove('btn-disabled');
         calcBtn.removeAttribute('disabled');
-
         const text = `Привет! Хочу ${selectedItems.join(', ')}, примерно ${finalTotal.toLocaleString('ru-RU')} ₽. Посчитаешь точно?`;
         calcBtn.href = `https://t.me/clown783?text=${encodeURIComponent(text)}`;
     } else {
@@ -287,11 +321,32 @@ calcCards.forEach(card => {
         input.addEventListener('change', updateCalc);
     });
 });
-
 updateCalc();
 
 // ==========================================
-// 9. РЕСАЙЗ
+// 10. 3D-НАКЛОН КАРТОЧЕК
+// ==========================================
+
+if (window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.tilt').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -8;
+            const rotateY = ((x - centerX) / centerX) * 8;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        });
+    });
+}
+
+// ==========================================
+// 11. РЕСАЙЗ
 // ==========================================
 
 window.addEventListener('resize', () => {
