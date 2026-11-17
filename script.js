@@ -166,7 +166,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ==========================================
-// 7. КУРСОР (точка + кольцо с запаздыванием)
+// 7. КУРСОР (точка + кольцо)
 // ==========================================
 
 const cursorDot = document.querySelector('.cursor-dot');
@@ -183,8 +183,8 @@ document.addEventListener('mousemove', (e) => {
 });
 
 function animateRing() {
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
+    ringX += (mouseX - ringX) * 0.5;
+    ringY += (mouseY - ringY) * 0.5;
     cursorRing.style.left = ringX + 'px';
     cursorRing.style.top = ringY + 'px';
     requestAnimationFrame(animateRing);
@@ -233,7 +233,7 @@ function typeTerminal() {
 typeTerminal();
 
 // ==========================================
-// 9. КАЛЬКУЛЯТОР (починенный)
+// 9. КАЛЬКУЛЯТОР
 // ==========================================
 
 const calcCards = document.querySelectorAll('.calc-card');
@@ -353,3 +353,109 @@ window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
+
+// ==========================================
+// 12. 3D-СФЕРА ИЗ ЧАСТИЦ (Three.js)
+// ==========================================
+
+import * as THREE from 'three';
+
+const globeCanvas = document.getElementById('globe-canvas');
+
+if (globeCanvas && window.innerWidth > 768) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 3.5;
+
+    const renderer = new THREE.WebGLRenderer({
+        canvas: globeCanvas,
+        antialias: true,
+        alpha: true
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+
+    const count = 3000;
+    const positions = new Float32Array(count * 3);
+    const sizes = new Float32Array(count);
+
+    for (let i = 0; i < count; i++) {
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(Math.random() * 2 - 1);
+        const r = 1.4 + Math.random() * 0.15;
+        positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+        positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+        positions[i * 3 + 2] = r * Math.cos(phi);
+        sizes[i] = Math.random() * 0.03 + 0.01;
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+    const vertexShader = `
+        attribute float size;
+        void main() {
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            gl_PointSize = size * (300.0 / -mvPosition.z);
+            gl_Position = projectionMatrix * mvPosition;
+        }
+    `;
+
+    const fragmentShader = `
+        void main() {
+            vec2 uv = gl_PointCoord - vec2(0.5);
+            float dist = length(uv);
+            if (dist > 0.5) discard;
+            float alpha = smoothstep(0.5, 0.0, dist);
+            gl_FragColor = vec4(0.0, 1.0, 0.53, alpha);
+        }
+    `;
+
+    const material = new THREE.ShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+    });
+
+    const sphere = new THREE.Points(geometry, material);
+    scene.add(sphere);
+
+    const ringCount = 800;
+    const ringPositions = new Float32Array(ringCount * 3);
+    const ringSizes = new Float32Array(ringCount);
+
+    for (let i = 0; i < ringCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const r = 2.0 + Math.random() * 0.4;
+        ringPositions[i * 3] = Math.cos(angle) * r;
+        ringPositions[i * 3 + 1] = (Math.random() - 0.5) * 0.15;
+        ringPositions[i * 3 + 2] = Math.sin(angle) * r;
+        ringSizes[i] = Math.random() * 0.02 + 0.005;
+    }
+
+    const ringGeo = new THREE.BufferGeometry();
+    ringGeo.setAttribute('position', new THREE.BufferAttribute(ringPositions, 3));
+    ringGeo.setAttribute('size', new THREE.BufferAttribute(ringSizes, 1));
+
+    const ring = new THREE.Points(ringGeo, material.clone());
+    scene.add(ring);
+
+    function animateGlobe() {
+        requestAnimationFrame(animateGlobe);
+        sphere.rotation.y += 0.0015;
+        sphere.rotation.x += 0.0005;
+        ring.rotation.y -= 0.001;
+        ring.rotation.x += 0.0003;
+        renderer.render(scene, camera);
+    }
+    animateGlobe();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+}
