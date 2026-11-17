@@ -72,35 +72,7 @@ function animateParticles() {
 animateParticles();
 
 // ==========================================
-// 2. МАТРИЧНЫЙ ДОЖДЬ
-// ==========================================
-
-const matrixCanvas = document.getElementById('matrix');
-const mctx = matrixCanvas.getContext('2d');
-matrixCanvas.width = window.innerWidth;
-matrixCanvas.height = window.innerHeight;
-
-const chars = '01アイウエオカキクケコサシスセソABCDEF'.split('');
-const fontSize = 14;
-const columns = matrixCanvas.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(1);
-
-function drawMatrix() {
-    mctx.fillStyle = 'rgba(5,5,5,0.05)';
-    mctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-    mctx.fillStyle = '#00ff88';
-    mctx.font = fontSize + 'px monospace';
-    for (let i = 0; i < drops.length; i++) {
-        const text = chars[Math.floor(Math.random() * chars.length)];
-        mctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
-    }
-}
-setInterval(drawMatrix, 50);
-
-// ==========================================
-// 3. АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ
+// 2. АНИМАЦИЯ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ
 // ==========================================
 
 const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
@@ -119,7 +91,7 @@ document.querySelectorAll('.service-card, .project-card, .process-step, .skill-i
 });
 
 // ==========================================
-// 4. СЧЁТЧИКИ ЦИФР
+// 3. СЧЁТЧИКИ ЦИФР
 // ==========================================
 
 const counters = document.querySelectorAll('.stat-number');
@@ -150,7 +122,7 @@ function animateCounter(element, target) {
 }
 
 // ==========================================
-// 5. ПЛАВНЫЙ СКРОЛЛ
+// 4. ПЛАВНЫЙ СКРОЛЛ
 // ==========================================
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -164,7 +136,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ==========================================
-// 6. ЭФФЕКТ ПАРАЛЛАКСА НА ГЛАВНОМ ЭКРАНЕ
+// 5. ЭФФЕКТ ПАРАЛЛАКСА НА ГЛАВНОМ ЭКРАНЕ
 // ==========================================
 
 window.addEventListener('scroll', () => {
@@ -177,7 +149,7 @@ window.addEventListener('scroll', () => {
 });
 
 // ==========================================
-// 7. КАСТОМНЫЙ КУРСОР
+// 6. КАСТОМНЫЙ КУРСОР
 // ==========================================
 
 const cursor = document.createElement('div');
@@ -189,13 +161,13 @@ document.addEventListener('mousemove', (e) => {
     cursor.style.top = e.clientY + 'px';
 });
 
-document.querySelectorAll('a, button, .btn').forEach(el => {
+document.querySelectorAll('a, button, .btn, .calc-option, .calc-base').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
 });
 
 // ==========================================
-// 8. ЖИВОЙ ТЕРМИНАЛ
+// 7. ЖИВОЙ ТЕРМИНАЛ
 // ==========================================
 
 const phrases = [
@@ -231,12 +203,98 @@ function typeTerminal() {
 typeTerminal();
 
 // ==========================================
+// 8. КАЛЬКУЛЯТОР СТОИМОСТИ
+// ==========================================
+
+const calcCards = document.querySelectorAll('.calc-card');
+const calcTotal = document.getElementById('calc-total');
+const calcDiscount = document.getElementById('calc-discount');
+const calcBtn = document.getElementById('calc-btn');
+
+function updateCalc() {
+    let total = 0;
+    let activeBlocks = 0;
+    const selectedItems = [];
+
+    calcCards.forEach(card => {
+        const base = card.querySelector('.calc-base input[type="radio"]');
+        const extras = card.querySelectorAll('.calc-extras input[type="checkbox"]');
+        const extrasWrap = card.querySelector('.calc-extras');
+
+        // Блок активен, если выбрана база
+        const isActive = base.checked;
+        card.classList.toggle('active', isActive);
+        if (isActive) activeBlocks++;
+
+        // Активируем/деактивируем допы
+        extras.forEach(extra => {
+            const label = extra.closest('.calc-option');
+            if (isActive) {
+                extra.disabled = false;
+                label.classList.remove('disabled');
+            } else {
+                extra.disabled = true;
+                extra.checked = false;
+                label.classList.add('disabled');
+            }
+        });
+
+        // Считаем базу
+        if (base.checked) {
+            total += parseInt(base.dataset.price);
+            selectedItems.push(base.dataset.label);
+        }
+
+        // Считаем допы
+        extras.forEach(extra => {
+            if (extra.checked) {
+                total += parseInt(extra.dataset.price);
+                selectedItems.push(extra.dataset.label);
+            }
+        });
+    });
+
+    // Скидка 10%, если баз в 2+ блоках
+    let finalTotal = total;
+    let hasDiscount = activeBlocks >= 2;
+
+    if (hasDiscount) {
+        finalTotal = Math.round(total * 0.9);
+        calcDiscount.style.display = 'block';
+        calcDiscount.textContent = `Скидка за комплекс: −${(total - finalTotal).toLocaleString('ru-RU')} ₽ (10%)`;
+    } else {
+        calcDiscount.style.display = 'none';
+    }
+
+    calcTotal.textContent = finalTotal.toLocaleString('ru-RU') + ' ₽';
+
+    // Кнопка
+    if (finalTotal > 0) {
+        calcBtn.classList.remove('btn-disabled');
+        calcBtn.removeAttribute('disabled');
+
+        const text = `Привет! Хочу ${selectedItems.join(', ')}, примерно ${finalTotal.toLocaleString('ru-RU')} ₽. Посчитаешь точно?`;
+        calcBtn.href = `https://t.me/clown783?text=${encodeURIComponent(text)}`;
+    } else {
+        calcBtn.classList.add('btn-disabled');
+        calcBtn.setAttribute('disabled', 'true');
+        calcBtn.href = '#';
+    }
+}
+
+calcCards.forEach(card => {
+    card.querySelectorAll('input').forEach(input => {
+        input.addEventListener('change', updateCalc);
+    });
+});
+
+updateCalc();
+
+// ==========================================
 // 9. РЕСАЙЗ
 // ==========================================
 
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    matrixCanvas.width = window.innerWidth;
-    matrixCanvas.height = window.innerHeight;
 });

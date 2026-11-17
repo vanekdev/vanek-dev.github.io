@@ -23,9 +23,10 @@
             <a href="#" class="nav-logo">ВАНЁК<span>.dev</span></a>
             <div class="nav-links">
                 <a href="#about">Обо мне</a>
+                <a href="#tech">Технологии</a>
                 <a href="#services">Услуги</a>
                 <a href="#portfolio">Проекты</a>
-                <a href="#promo">Оплата</a>
+                <a href="#calc">Калькулятор</a>
                 <a href="#contact">Контакты</a>
                 <a href="https://t.me/vanek_dev" class="nav-btn nav-channel" target="_blank">📢 Канал</a>
                 <a href="https://t.me/clown783" class="nav-btn" target="_blank">Написать</a>
@@ -34,7 +35,6 @@
     </nav>
 
     <canvas id="particles"></canvas>
-    <canvas id="matrix"></canvas>
 
     <!-- ГЛАВНЫЙ ЭКРАН -->
     <section class="hero">
@@ -85,6 +85,14 @@
                 <p>Уже делаю Mini Apps в Telegram — это новый уровень для бизнеса. Магазины, игры, дашборды прямо внутри мессенджера.</p>
                 <p>Мой подход: <strong>быстро, чётко, красиво</strong>. Никаких «потом доделаю» — либо делаю хорошо, либо не берусь.</p>
             </div>
+        </div>
+    </section>
+
+    <!-- ТЕХНОЛОГИИ -->
+    <section class="tech" id="tech">
+        <h2>Технологии</h2>
+        <p class="section-subtitle">Стек, с которым я работаю</p>
+        <div class="tech-grid">
             <div class="about-skills">
                 <div class="skill-item"><span>🐍</span> Python <span class="skill-level">Advanced</span></div>
                 <div class="skill-item"><span>🤖</span> Telegram API <span class="skill-level">Advanced</span></div>
@@ -92,6 +100,16 @@
                 <div class="skill-item"><span>🧠</span> AI / Claude / GPT <span class="skill-level">Advanced</span></div>
                 <div class="skill-item"><span>🎨</span> UI / UX Design <span class="skill-level">Intermediate</span></div>
                 <div class="skill-item"><span>🔧</span> Git / Deploy <span class="skill-level">Intermediate</span></div>
+            </div>
+            <div class="cube-wrap">
+                <div class="cube">
+                    <div class="cube-face front">Python</div>
+                    <div class="cube-face back">aiogram</div>
+                    <div class="cube-face right">JS</div>
+                    <div class="cube-face left">AI</div>
+                    <div class="cube-face top">Mini Apps</div>
+                    <div class="cube-face bottom">Web</div>
+                </div>
             </div>
         </div>
     </section>
@@ -227,7 +245,7 @@
         </div>
     </section>
 
-    <!-- ПРОМО-БЛОК (вместо отзывов) -->
+    <!-- ПРОМО-БЛОК -->
     <section class="promo" id="promo">
         <h2>Перед тем как писать</h2>
         <p class="section-subtitle">Коротко о главном</p>
@@ -235,6 +253,114 @@
             <div class="promo-item"><span>💳</span><span>Оплата 50/50: половина на старте, половина после сдачи</span></div>
             <div class="promo-item"><span>🎁</span><span>Демо-бота сделаю бесплатно — посмотрите до оплаты</span></div>
             <div class="promo-item"><span>⏰</span><span>Отвечаю в течение 2–3 часов</span></div>
+        </div>
+    </section>
+
+    <!-- КАЛЬКУЛЯТОР -->
+    <section class="calc" id="calc">
+        <h2>Калькулятор стоимости</h2>
+        <p class="section-subtitle">Отметь, что нужно — цена посчитается сама</p>
+        <div class="calc-grid">
+
+            <!-- БОТЫ -->
+            <div class="calc-card" data-block="bot">
+                <h3>🤖 Telegram-боты</h3>
+                <label class="calc-base">
+                    <input type="radio" name="base-bot" data-price="3000" data-label="Telegram-бот">
+                    <span>Базовая настройка (меню, кнопки, эхо-бот)</span>
+                    <span class="calc-price">3000 ₽</span>
+                </label>
+                <div class="calc-extras">
+                    <label class="calc-option disabled">
+                        <input type="checkbox" data-price="2000" data-label="каталог товаров/услуг" disabled>
+                        <span>Каталог товаров/услуг</span>
+                        <span class="calc-price">+2000 ₽</span>
+                    </label>
+                    <label class="calc-option disabled">
+                        <input type="checkbox" data-price="1500" data-label="приём заявок" disabled>
+                        <span>Приём заявок (в ЛС/канал)</span>
+                        <span class="calc-price">+1500 ₽</span>
+                    </label>
+                    <label class="calc-option disabled">
+                        <input type="checkbox" data-price="3000" data-label="админ-панель" disabled>
+                        <span>Админ-панель (статистика, рассылка)</span>
+                        <span class="calc-price">+3000 ₽</span>
+                    </label>
+                    <label class="calc-option disabled">
+                        <input type="checkbox" data-price="4000" data-label="интеграция ИИ" disabled>
+                        <span>Интеграция ИИ (OpenAI/Gemini)</span>
+                        <span class="calc-price">+4000 ₽</span>
+                    </label>
+                    <label class="calc-option disabled">
+                        <input type="checkbox" data-price="3000" data-label="онлайн-оплата" disabled>
+                        <span>Онлайн-оплата (Robokassa/ЮKassa)</span>
+                        <span class="calc-price">+3000 ₽</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- MINI APPS -->
+            <div class="calc-card" data-block="mini">
+                <h3>📱 Mini Apps (WebApp)</h3>
+                <label class="calc-base">
+                    <input type="radio" name="base-mini" data-price="8000" data-label="Mini App (WebApp)">
+                    <span>Простое приложение (личный кабинет, баланс)</span>
+                    <span class="calc-price">8000 ₽</span>
+                </label>
+                <div class="calc-extras">
+                    <label class="calc-option disabled">
+                        <input type="checkbox" data-price="6000" data-label="сложная логика (магазин, корзина)" disabled>
+                        <span>Сложная логика (магазин, корзина)</span>
+                        <span class="calc-price">+6000 ₽</span>
+                    </label>
+                    <label class="calc-option disabled">
+                        <input type="checkbox" data-price="2000" data-label="интеграция с ботом" disabled>
+                        <span>Интеграция с ботом (передача данных)</span>
+                        <span class="calc-price">+2000 ₽</span>
+                    </label>
+                    <label class="calc-option disabled">
+                        <input type="checkbox" data-price="5000" data-label="админ-панель для Mini App" disabled>
+                        <span>Админ-панель для управления</span>
+                        <span class="calc-price">+5000 ₽</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- САЙТЫ -->
+            <div class="calc-card" data-block="site">
+                <h3>🌐 Сайты / лендинги</h3>
+                <label class="calc-base">
+                    <input type="radio" name="base-site" data-price="5000" data-label="Сайт-лендинг (адаптивный)">
+                    <span>Одностраничный лендинг (визитка, адаптивный)</span>
+                    <span class="calc-price">5000 ₽</span>
+                </label>
+                <div class="calc-extras">
+                    <label class="calc-option disabled">
+                        <input type="checkbox" data-price="1500" data-label="форма обратной связи" disabled>
+                        <span>Форма обратной связи / заявки</span>
+                        <span class="calc-price">+1500 ₽</span>
+                    </label>
+                    <label class="calc-option disabled">
+                        <input type="checkbox" data-price="3000" data-label="дизайн с нуля" disabled>
+                        <span>Дизайн с нуля (по макету)</span>
+                        <span class="calc-price">+3000 ₽</span>
+                    </label>
+                    <label class="calc-option disabled">
+                        <input type="checkbox" data-price="4000" data-label="анимации и 3D-эффекты" disabled>
+                        <span>Анимации и 3D-эффекты</span>
+                        <span class="calc-price">+4000 ₽</span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="calc-result">
+            <div class="calc-total-label">Предварительная стоимость</div>
+            <div class="calc-total" id="calc-total">0 ₽</div>
+            <div class="calc-discount" id="calc-discount" style="display:none;"></div>
+            <div class="calc-note">Это предварительная стоимость. Точная цена — после обсуждения ТЗ. Напишите — сделаю бесплатный расчёт.</div>
+            <a href="#" id="calc-btn" class="btn btn-disabled" target="_blank">Обсудить проект</a>
         </div>
     </section>
 
