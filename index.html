@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ванёк — Разработчик Telegram-ботов и сайтов</title>
+    
+    <meta name="description" content="Ванёк — разработчик Telegram-ботов, сайтов и AI-интеграций. Делаю быстро, чётко и красиво.">
+    <meta name="keywords" content="разработка ботов, телеграм бот на заказ, создать сайт, AI бот, Ванёк разработчик, mini apps">
+    <meta name="author" content="Ванёк">
+    <meta property="og:title" content="Ванёк — Разработчик">
+    <meta property="og:description" content="Создаю сочные сайты, умных Telegram-ботов и AI-интеграции.">
+    <meta property="og:type" content="website">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- НАВИГАЦИЯ -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">ВАНЁК<span>.dev</span></a>
+            <div class="nav-links">
+                <a href="#about">Обо мне</a>
+                <a href="#services">Услуги</a>
+                <a href="#portfolio">Проекты</a>
+                <a href="#promo">Оплата</a>
+                <a href="#contact">Контакты</a>
+                <a href="https://t.me/vanek_dev" class="nav-btn nav-channel" target="_blank">📢 Канал</a>
+                <a href="https://t.me/clown783" class="nav-btn" target="_blank">Написать</a>
+            </div>
+        </div>
+    </nav>
+
+    <canvas id="particles"></canvas>
+    <canvas id="matrix"></canvas>
+
+    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>ВАНЁК</h1>
+            <p class="hero-subtitle">CREATIVE DEVELOPER</p>
+            <p class="hero-skills">const skills = ["Сайты", "Telegram-боты", "AI", "Mini Apps"];</p>
+            <p class="hero-desc">19 лет. 3 года в разработке. Создаю сочные сайты, умных Telegram-ботов и AI-интеграции. Python + Frontend + AI.</p>
+
+            <!-- ЖИВОЙ ТЕРМИНАЛ -->
+            <div class="terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">vanek@dev:~$</span>
+                </div>
+                <div class="terminal-body">
+                    <span id="terminal-text"></span><span class="terminal-cursor">▊</span>
+                </div>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="#contact" class="btn">Обсудить проект</a>
+                <a href="#portfolio" class="btn btn-outline">Мои работы</a>
+            </div>
+        </div>
+        <div class="scroll-indicator"><span></span></div>
+    </section>
+
+    <!-- СТАТИСТИКА -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item"><span class="stat-number" data-target="3">0</span><span class="stat-label">Года опыта</span></div>
+            <div class="stat-item"><span class="stat-number" data-target="10">0</span><span class="stat-label">Проектов</span></div>
+            <div class="stat-item"><span class="stat-number" data-target="15">0</span><span class="stat-label">Технологий</span></div>
+            <div class="stat-item"><span class="stat-number" data-target="100">0</span><span class="stat-label">% В срок</span></div>
+        </div>
+    </section>
+
+    <!-- ОБО МНЕ -->
+    <section class="about" id="about">
+        <h2>Кто я такой</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Привет! Мне 19 лет, я разработчик. Делаю сайты, Telegram-ботов, Mini Apps и AI-интеграции под заказ.</p>
+                <p>Работаю с Python, Frontend, AI. Использую современные инструменты: Cursor, VS Code, Git, Claude, GPT, DeepSeek.</p>
+                <p>Уже делаю Mini Apps в Telegram — это новый уровень для бизнеса. Магазины, игры, дашборды прямо внутри мессенджера.</p>
+                <p>Мой подход: <strong>быстро, чётко, красиво</strong>. Никаких «потом доделаю» — либо делаю хорошо, либо не берусь.</p>
+            </div>
+            <div class="about-skills">
+                <div class="skill-item"><span>🐍</span> Python <span class="skill-level">Advanced</span></div>
+                <div class="skill-item"><span>🤖</span> Telegram API <span class="skill-level">Advanced</span></div>
+                <div class="skill-item"><span>⚡</span> HTML / CSS / JS <span class="skill-level">Advanced</span></div>
+                <div class="skill-item"><span>🧠</span> AI / Claude / GPT <span class="skill-level">Advanced</span></div>
+                <div class="skill-item"><span>🎨</span> UI / UX Design <span class="skill-level">Intermediate</span></div>
+                <div class="skill-item"><span>🔧</span> Git / Deploy <span class="skill-level">Intermediate</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- УСЛУГИ -->
+    <section class="services" id="services">
+        <h2>Что я делаю</h2>
+        <p class="section-subtitle">Три направления, в которых я силён. <strong style="color:#00ff88;">Скидка на первый заказ</strong>.</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>Сайты и лендинги</h3>
+                <p>Продающие сайты, визитки, лендинги с анимациями. Адаптивно, быстро, красиво.</p>
+                <ul class="service-list">
+                    <li>Лендинги для продуктов</li>
+                    <li>Сайты-визитки</li>
+                    <li>Портфолио и резюме</li>
+                </ul>
+                <div class="price-block">
+                    <span class="price-new">от 5 000 ₽</span>
+                </div>
+            </div>
+            <div class="service-card featured">
+                <div class="service-icon">🤖</div>
+                <h3>Telegram-боты</h3>
+                <p>Умные боты для автоматизации: приём заявок, оплата, интеграции, AI-помощники.</p>
+                <ul class="service-list">
+                    <li>Боты для приёма заказов</li>
+                    <li>AI-боты (ChatGPT/Claude)</li>
+                    <li>Оплата и подписки</li>
+                </ul>
+                <div class="price-block">
+                    <span class="price-new">от 3 000 ₽</span>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>Mini Apps</h3>
+                <p>Приложения прямо в Telegram. Магазины, игры, дашборды — всё внутри мессенджера.</p>
+                <ul class="service-list">
+                    <li>Магазины в Telegram</li>
+                    <li>Игровые механики</li>
+                    <li>Дашборды и панели</li>
+                </ul>
+                <div class="price-block">
+                    <span class="price-new">от 10 000 ₽</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПРОЕКТЫ -->
+    <section class="portfolio" id="portfolio">
+        <h2>Проекты</h2>
+        <p class="section-subtitle">Каждый проект — реальная задача и результат</p>
+        <div class="portfolio-grid">
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-emoji">🛡️</span>
+                    <span class="project-tag">Bot</span>
+                </div>
+                <h3>VPN-бот для бизнеса</h3>
+                <div class="case-study">
+                    <div class="case-item">
+                        <span class="case-label">Проблема:</span>
+                        <span>Владелец VPN тратил 2 часа в день на ручную выдачу ключей.</span>
+                    </div>
+                    <div class="case-item">
+                        <span class="case-label">Решение:</span>
+                        <span>Бот с автовыдачей ключей через API 3x-ui.</span>
+                    </div>
+                    <div class="case-item">
+                        <span class="case-label">Результат:</span>
+                        <span>Экономия 60 часов в месяц, клиенты получают ключи за 5 секунд.</span>
+                    </div>
+                </div>
+                <div class="project-tech">
+                    <span>Python</span><span>aiogram</span><span>SQLite</span><span>3x-ui API</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-emoji">📊</span>
+                    <span class="project-tag">AI</span>
+                </div>
+                <h3>Crypto-бот с ИИ</h3>
+                <div class="case-study">
+                    <div class="case-item">
+                        <span class="case-label">Проблема:</span>
+                        <span>Нужен был автопостинг крипто-обзоров в канал без участия человека.</span>
+                    </div>
+                    <div class="case-item">
+                        <span class="case-label">Решение:</span>
+                        <span>Бот с интеграцией AI для генерации постов и расписанием.</span>
+                    </div>
+                    <div class="case-item">
+                        <span class="case-label">Результат:</span>
+                        <span>Канал автоматически публикует 5 постов в день, охват вырос на 40%.</span>
+                    </div>
+                </div>
+                <div class="project-tech">
+                    <span>Python</span><span>AI</span><span>Scheduler</span><span>CoinGecko API</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-emoji">⚙️</span>
+                    <span class="project-tag">Bot</span>
+                </div>
+                <h3>Бот под задачу</h3>
+                <div class="case-study">
+                    <div class="case-item">
+                        <span class="case-label">Проблема:</span>
+                        <span>Бизнесу нужен был универсальный бот для автоматизации.</span>
+                    </div>
+                    <div class="case-item">
+                        <span class="case-label">Решение:</span>
+                        <span>Бот с готовой логикой, админкой и интеграциями.</span>
+                    </div>
+                    <div class="case-item">
+                        <span class="case-label">Результат:</span>
+                        <span>Автоматизация рутины, рост заявок на 30%.</span>
+                    </div>
+                </div>
+                <div class="project-tech">
+                    <span>Python</span><span>aiogram</span><span>SQLite</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ПРОМО-БЛОК (вместо отзывов) -->
+    <section class="promo" id="promo">
+        <h2>Перед тем как писать</h2>
+        <p class="section-subtitle">Коротко о главном</p>
+        <div class="promo-grid">
+            <div class="promo-item"><span>💳</span><span>Оплата 50/50: половина на старте, половина после сдачи</span></div>
+            <div class="promo-item"><span>🎁</span><span>Демо-бота сделаю бесплатно — посмотрите до оплаты</span></div>
+            <div class="promo-item"><span>⏰</span><span>Отвечаю в течение 2–3 часов</span></div>
+        </div>
+    </section>
+
+    <!-- КАК Я РАБОТАЮ -->
+    <section class="process" id="process">
+        <h2>Как я работаю</h2>
+        <p class="section-subtitle">Простой процесс без сюрпризов</p>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <div class="step-icon">💬</div>
+                <h3>Обсуждение</h3>
+                <p>Созваниваемся или переписываемся, обсуждаем задачу. Я задаю вопросы, ты рассказываешь что нужно.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <div class="step-icon">📐</div>
+                <h3>План и цена</h3>
+                <p>Оцениваю сроки и стоимость. Согласовываем ТЗ. Обсуждаем референсы, стиль, фичи.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <div class="step-icon">⚡</div>
+                <h3>Разработка</h3>
+                <p>Делаю проект, показываю промежуточные результаты. Вношу правки по ходу работы.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">04</div>
+                <div class="step-icon">🚀</div>
+                <h3>Сдача и поддержка</h3>
+                <p>Передаю готовый проект, помогаю с деплоем. Даю гарантию на все правки после сдачи.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- КОНТАКТЫ -->
+    <section class="contact" id="contact">
+        <h2>Готов начать проект?</h2>
+        <p>Напиши в Telegram — обсудим задачу, сроки и стоимость. <strong style="color:#00ff88;">Скидка на первый заказ</strong>.</p>
+        <div class="contact-buttons">
+            <a href="https://t.me/clown783" class="btn btn-large" target="_blank">✈️ Написать мне</a>
+            <a href="https://t.me/vanek_dev" class="btn btn-large btn-outline" target="_blank">📢 Канал</a>
+            <a href="https://t.me/vanek_dev_team" class="btn btn-large btn-outline" target="_blank">👥 Команда</a>
+        </div>
+        <div class="contact-info">
+            <div class="contact-item"><span>⏰</span><span>Отвечаю в течение 2-3 часов</span></div>
+            <div class="contact-item"><span>💼</span><span>Freelance · Удалённо · По всему миру</span></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="https://t.me/clown783" target="_blank">Telegram</a>
+            <a href="https://t.me/vanek_dev" target="_blank">Канал</a>
+            <a href="https://t.me/vanek_dev_team" target="_blank">Команда</a>
+            <a href="https://kwork.ru/user/vanek_dev" target="_blank">Kwork</a>
+            <a href="https://www.avito.ru/user/c161481f12a6cf959d0532075dd729a0/profile" target="_blank">Авито</a>
+        </div>
+        <p>© 2026 Ванёк · Сделано с ❤️ и AI</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
