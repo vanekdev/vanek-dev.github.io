@@ -346,23 +346,12 @@ if (window.matchMedia('(hover: hover)').matches) {
 }
 
 // ==========================================
-// 11. РЕСАЙЗ
+// 11. 3D-СФЕРА ИЗ ЧАСТИЦ (Three.js r128)
 // ==========================================
-
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
-
-// ==========================================
-// 12. 3D-СФЕРА ИЗ ЧАСТИЦ (Three.js)
-// ==========================================
-
-import * as THREE from 'three';
 
 const globeCanvas = document.getElementById('globe-canvas');
 
-if (globeCanvas && window.innerWidth > 768) {
+if (typeof THREE !== 'undefined' && globeCanvas && window.innerWidth > 768) {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.z = 3.5;
@@ -459,3 +448,12 @@ if (globeCanvas && window.innerWidth > 768) {
         renderer.setSize(window.innerWidth, window.innerHeight);
     });
 }
+
+// ==========================================
+// 12. РЕСАЙЗ
+// ==========================================
+
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
